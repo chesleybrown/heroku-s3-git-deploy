@@ -28,7 +28,8 @@
 	"dependencies": {
 		"body-parser": "^1.9.2",
 		"express": "^4.10.1",
-		"request": "^2.47.0"
+		"request": "^2.47.0",
+		"pkgcloud-container-copy": "0.5.0"
 	},
 	"devDependencies": {
 		"mocha": "^2.0.1",

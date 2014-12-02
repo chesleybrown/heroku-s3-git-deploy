@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var pkgcloudContainerCopy = require('pkgcloud-container-copy');
 
 module.exports = function () {
 	var app = express();
