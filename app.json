@@ -1,0 +1,6 @@
+{
+	"name": "heroku-s3-git-deploy",
+	"description": "Micro app for deploying to Amazon S3.",
+	"repository": "https://github.com/chesleybrown/heroku-s3-git-deloy",
+	"keywords": ["node", "express", "git", "s3", "amazon", "bitbucket"]
+}

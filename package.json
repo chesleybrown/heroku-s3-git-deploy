@@ -1,0 +1,38 @@
+{
+	"name": "heroku-s4-git-deploy",
+	"version": "0.0.1",
+	"description": "Micro app for deploying to Amazon S3.",
+	"main": "app.js",
+	"scripts": {
+		"test": "mocha"
+	},
+	"engines": {
+		"node": "0.10.33"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/chesleybrown/heroku-s3-git-deploy.git"
+	},
+	"keywords": [
+		"bitbucket",
+		"git",
+		"amazon",
+		"s3"
+	],
+	"author": "Chesley",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/chesleybrown/heroku-s3-git-deploy/issues"
+	},
+	"homepage": "https://github.com/chesleybrown/heroku-s3-git-deploy",
+	"dependencies": {
+		"body-parser": "^1.9.2",
+		"express": "^4.10.1",
+		"request": "^2.47.0"
+	},
+	"devDependencies": {
+		"mocha": "^2.0.1",
+		"chai": "^1.9.2",
+		"supertest": "^0.15.0"
+	}
+}
