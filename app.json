@@ -2,5 +2,15 @@
 	"name": "heroku-s3-git-deploy",
 	"description": "Micro app for deploying to Amazon S3.",
 	"repository": "https://github.com/chesleybrown/heroku-s3-git-deloy",
-	"keywords": ["node", "express", "git", "s3", "amazon", "bitbucket"]
+	"keywords": ["node", "express", "git", "s3", "amazon", "bitbucket"],
+	"env": {
+		"AWS_ACCESS_KEY_ID": {
+			"description": "Your Amazon access key id.",
+			"value": ""
+		},
+		"AWS_SECRET_ACCESS_KEY": {
+			"description": "Your amazon secret access key.",
+			"value": ""
+		}
+	}
 }
