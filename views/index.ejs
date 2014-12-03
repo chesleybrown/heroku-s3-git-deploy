@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>heroku-s3-git-deploy</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<div class="text-center">
+					<h1>heroku-s3-git-deploy</h1>
+				</div>
+			</div>
+		</nav>
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<% if (AWS_ACCESS_KEY_ID && AWS_SECRET_ACCESS_KEY) { %>
+						<% if (authenticated) { %>
+							<div class="alert alert-success" role="alert">App is running and has access to Bitbucket!</div>
+						<% } else { %>
+							<div class="alert alert-danger" role="alert">Access to Bitbucket was denied. Are you sure the credentials are correct?</div>
+						<% } %>
+					<% } else { %>
+						<div class="alert alert-warning" role="alert">App is running, but missing required configuration!</div>
+					<% } %>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-6">
+					<h4>
+						<% if (AWS_ACCESS_KEY_ID) { %>
+							<span class="label label-success">Success</span>
+						<% } else { %>
+							<span class="label label-danger">Missing</span>
+						<% } %>
+						<div class="visible-xs">
+							<br>
+						</div>
+						AWS_ACCESS_KEY_ID
+					</h4>
+				</div>
+				<div class="col-md-6">
+					<% if (AWS_ACCESS_KEY_ID) { %>
+						<h4><small>ENV variable is set!</small></h4>
+					<% } else { %>
+						<h4><small>You still need to set the <span class="label label-default">AWS_ACCESS_KEY_ID</span> ENV variable.</small></h4>
+					<% } %>
+				</div>
+			</div>
+			
+			<hr>
+			
+			<div class="row">
+				<div class="col-md-6">
+					<h4>
+						<% if (AWS_SECRET_ACCESS_KEY) { %>
+							<span class="label label-success">Success</span>
+						<% } else { %>
+							<span class="label label-danger">Missing</span>
+						<% } %>
+						<div class="visible-xs">
+							<br>
+						</div>
+						AWS_SECRET_ACCESS_KEY
+					</h4>
+				</div>
+				<div class="col-md-6">
+					<% if (AWS_SECRET_ACCESS_KEY) { %>
+						<h4><small>ENV variable is set!</small></h4>
+					<% } else { %>
+						<h4><small>You still need to set the <span class="label label-default">AWS_SECRET_ACCESS_KEY</span> ENV variable.</small></h4>
+					<% } %>
+				</div>
+			</div>
+			
+			<hr>
+			
+			<div class="row">
+				<div class="col-xs-12">
+					<h3>Setup</h3>
+					<ol>
+						<li>TBD</li>
+					</ol>
+				</div>
+			</div>
+			
+			<hr>
+			
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<p class="text-muted">
+						Powered by <a href="https://github.com/chesleybrown/heroku-s3-git-deploy">heroku-s3-git-deploy</a><br>
+						Created by <a href="https://twitter.com/Chesley">@Chesley</a><br>
+						<a href="http://chesleybrown.ca">chesleybrown.ca</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -4,7 +4,8 @@
 	"description": "Micro app for deploying to Amazon S3.",
 	"main": "app.js",
 	"scripts": {
-		"test": "mocha"
+		"test": "mocha",
+		"watch": "mocha -w"
 	},
 	"engines": {
 		"node": "0.10.33"
@@ -28,8 +29,10 @@
 	"dependencies": {
 		"body-parser": "^1.9.2",
 		"express": "^4.10.1",
-		"request": "^2.47.0",
-		"pkgcloud-container-copy": "0.5.0"
+		"aws-sdk": "^2.0.29",
+		"pkgcloud-container-copy": "0.5.0",
+		"ejs": "^1.0.0",
+		"when": "^3.6.3"
 	},
 	"devDependencies": {
 		"mocha": "^2.0.1",
