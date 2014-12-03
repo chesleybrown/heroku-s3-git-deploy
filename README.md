@@ -15,6 +15,7 @@ First just deploy a free instance of the app on heroku using the button then jus
 
 1. Add a `POST` hook in Bitbucket that points to the `/commit-hook` end-point for your instance of this app. For example:
     - `https://<YOUR_APP_NAME_ON_HEROKU>.herokuapp.com/commit-hook`
+1. Now whenever code is pushed to the `master` branch, it will all be copied and deployed to Amazon S3.
 
 # Running Locally
 
