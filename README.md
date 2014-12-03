@@ -1,6 +1,7 @@
 heroku-s3-git-deploy
 =========================
 
+[![Build Status](https://travis-ci.org/chesleybrown/heroku-s3-git-deploy.svg)](https://travis-ci.org/chesleybrown/heroku-s3-git-deploy)
 [![Dependency Status](https://david-dm.org/chesleybrown/heroku-s3-git-deploy.svg)](https://david-dm.org/chesleybrown/heroku-s3-git-deploy)
 [![devDependency Status](https://david-dm.org/chesleybrown/heroku-s3-git-deploy/dev-status.svg)](https://david-dm.org/chesleybrown/heroku-s3-git-deploy#info=devDependencies)
 
