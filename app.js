@@ -61,9 +61,23 @@ module.exports = function () {
 	});
 	
 	app.post('/commit-hook', function (req, res) {
-		req.body = require('./test/bitbucket-commit.json');
 		if (!process.env.BITBUCKET_USERNAME || !process.env.BITBUCKET_PASSWORD || !process.env.AWS_REGION || !process.env.AWS_BUCKET || !process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY) {
 			res.status(500).end();
+			return;
+		}
+		
+		// only continue if changes to master
+		var isMaster = false;
+		if (req.body.commits && req.body.commits.length) {
+			for (var i in req.body.commits) {
+				if (req.body.commits[i].branch == 'master') {
+					isMaster = true;
+					break;
+				}
+			}
+		}
+		if (!isMaster) {
+			res.status(400).end();
 			return;
 		}
 		
