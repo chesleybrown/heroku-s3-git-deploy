@@ -7,7 +7,7 @@
 
 Micro app for automatically deploying to Amazon S3 on a BitBucket commit.
 
-![What it looks like](https://raw.githubusercontent.com/chesleybrown/bitbucket-codeship-status/master/media/screenshot.png)
+![What it looks like](https://raw.githubusercontent.com/chesleybrown/heroku-s3-git-deploy/master/media/screenshot.png)
 
 # Running on Heroku
 
