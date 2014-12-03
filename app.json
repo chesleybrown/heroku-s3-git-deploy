@@ -4,12 +4,24 @@
 	"repository": "https://github.com/chesleybrown/heroku-s3-git-deloy",
 	"keywords": ["node", "express", "git", "s3", "amazon", "bitbucket"],
 	"env": {
+		"BITBUCKET_USERNAME": {
+			"description": "Your Bitbucket username or team name.",
+			"value": ""
+		},
+		"BITBUCKET_PASSWORD": {
+			"description": "Your Bitbucket password or API key.",
+			"value": ""
+		},
+		"AWS_REGION": {
+			"description": "Your Amazon region.",
+			"value": ""
+		},
 		"AWS_ACCESS_KEY_ID": {
 			"description": "Your Amazon access key id.",
 			"value": ""
 		},
 		"AWS_SECRET_ACCESS_KEY": {
-			"description": "Your amazon secret access key.",
+			"description": "Your Amazon secret access key.",
 			"value": ""
 		}
 	}
