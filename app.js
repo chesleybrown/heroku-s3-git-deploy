@@ -25,7 +25,9 @@ module.exports = function () {
 	});
 	
 	app.get('/commit-hook', function (req, res) {
-		
+		if (!process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY) {
+			res.status(500).end();
+		}
 	});
 	
 	return app;
