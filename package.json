@@ -1,7 +1,7 @@
 {
 	"name": "heroku-s4-git-deploy",
-	"version": "1.0.0",
-	"description": "Micro app for deploying to Amazon S3.",
+	"version": "1.0.1",
+	"description": "Micro app for automatically deploying to Amazon S3 on a BitBucket commit.",
 	"main": "app.js",
 	"scripts": {
 		"test": "mocha",

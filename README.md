@@ -1,11 +1,13 @@
-heroku-s3-git-deploy
+![App Logo](https://raw.githubusercontent.com/chesleybrown/heroku-s3-git-deploy/master/media/logo-small.png) heroku-s3-git-deploy
 =========================
 
 [![Build Status](https://travis-ci.org/chesleybrown/heroku-s3-git-deploy.svg)](https://travis-ci.org/chesleybrown/heroku-s3-git-deploy)
 [![Dependency Status](https://david-dm.org/chesleybrown/heroku-s3-git-deploy.svg)](https://david-dm.org/chesleybrown/heroku-s3-git-deploy)
 [![devDependency Status](https://david-dm.org/chesleybrown/heroku-s3-git-deploy/dev-status.svg)](https://david-dm.org/chesleybrown/heroku-s3-git-deploy#info=devDependencies)
 
-Micro app for deploying to Amazon S3.
+Micro app for automatically deploying to Amazon S3 on a BitBucket commit.
+
+![What it looks like](https://raw.githubusercontent.com/chesleybrown/bitbucket-codeship-status/master/media/screenshot.png)
 
 # Running on Heroku
 

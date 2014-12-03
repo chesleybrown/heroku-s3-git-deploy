@@ -1,7 +1,8 @@
 {
 	"name": "heroku-s3-git-deploy",
-	"description": "Micro app for deploying to Amazon S3.",
+	"description": "Micro app for automatically deploying to Amazon S3 on a BitBucket commit.",
 	"repository": "https://github.com/chesleybrown/heroku-s3-git-deploy",
+	"logo": "https://raw.githubusercontent.com/chesleybrown/heroku-s3-git-deploy/master/media/logo.png",
 	"keywords": ["node", "express", "git", "s3", "amazon", "bitbucket"],
 	"env": {
 		"BRANCH": {
