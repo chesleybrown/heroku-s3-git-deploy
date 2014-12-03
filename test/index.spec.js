@@ -130,6 +130,12 @@ describe('Index', function () {
 				it('should say what branch is set', function () {
 					expect(response.text).to.contain('Set to <span class="label label-default">master</span>.');
 				});
+				it('should say what bucket is set', function () {
+					expect(response.text).to.contain('Set to <span class="label label-default">bucket</span>.');
+				});
+				it('should say what region is set', function () {
+					expect(response.text).to.contain('Set to <span class="label label-default">region</span>.');
+				});
 				it('should say login was successful', function () {
 					expect(response.text).to.contain('App is running and has access to Amazon S3 and BitBucket!');
 				});

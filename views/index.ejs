@@ -122,7 +122,7 @@
 				</div>
 				<div class="col-md-6">
 					<% if (AWS_REGION) { %>
-						<h4><small>ENV variable is set!</small></h4>
+						<h4><small>Set to <span class="label label-default"><%= AWS_REGION %></span>.</small></h4>
 					<% } else { %>
 						<h4><small>You still need to set the <span class="label label-default">AWS_REGION</span> ENV variable.</small></h4>
 					<% } %>
@@ -142,12 +142,12 @@
 						<div class="visible-xs">
 							<br>
 						</div>
-						AWS_REGION
+						AWS_BUCKET
 					</h4>
 				</div>
 				<div class="col-md-6">
 					<% if (AWS_BUCKET) { %>
-						<h4><small>ENV variable is set!</small></h4>
+						<h4><small><small>Set to <span class="label label-default"><%= AWS_BUCKET %></span>.</small></small></h4>
 					<% } else { %>
 						<h4><small>You still need to set the <span class="label label-default">AWS_BUCKET</span> ENV variable.</small></h4>
 					<% } %>
