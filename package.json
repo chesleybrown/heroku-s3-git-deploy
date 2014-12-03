@@ -38,6 +38,7 @@
 		"rimraf": "^2.2.8"
 	},
 	"devDependencies": {
+		"app.json": "^1.2.1",
 		"mocha": "^2.0.1",
 		"chai": "^1.9.2",
 		"supertest": "^0.15.0"
