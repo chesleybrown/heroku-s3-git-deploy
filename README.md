@@ -13,7 +13,8 @@ First just deploy a free instance of the app on heroku using the button then jus
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-1. Add a `Pull Request POST` hook in Bitbucket for `Create / Edit / Merge / Decline` that points to your instance of this app.
+1. Add a `POST` hook in Bitbucket that points to the `/commit-hook` end-point for your instance of this app. For example:
+    - `https://<YOUR_APP_NAME_ON_HEROKU>.herokuapp.com/commit-hook`
 
 # Running Locally
 
@@ -29,4 +30,10 @@ To execute all the tests, just run:
 
 ```
 npm test
+```
+
+To run all tests and watch for changes to re-run tests:
+
+```
+npm run watch
 ```

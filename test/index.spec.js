@@ -29,6 +29,7 @@ describe('Index', function () {
 	
 	describe('when no environment set', function () {
 		before(function () {
+			delete process.env.BRANCH;
 			delete process.env.BITBUCKET_USERNAME;
 			delete process.env.BITBUCKET_PASSWORD;
 			delete process.env.AWS_REGION;
@@ -66,6 +67,7 @@ describe('Index', function () {
 			});
 			it('should complain about configuration', function () {
 				expect(response.text).to.contain('App is running, but missing required configuration!');
+				expect(response.text).to.contain('You still need to set the <span class="label label-default">BRANCH</span> ENV variable.');
 				expect(response.text).to.contain('You still need to set the <span class="label label-default">BITBUCKET_USERNAME</span> ENV variable.');
 				expect(response.text).to.contain('You still need to set the <span class="label label-default">BITBUCKET_PASSWORD</span> ENV variable.');
 				expect(response.text).to.contain('You still need to set the <span class="label label-default">AWS_REGION</span> ENV variable.');
@@ -77,6 +79,7 @@ describe('Index', function () {
 	
 	describe('when environment set', function () {
 		before(function () {
+			process.env.BRANCH = 'master';
 			process.env.BITBUCKET_USERNAME = 'bitbucket_username';
 			process.env.BITBUCKET_PASSWORD = 'bitbucket_password';
 			process.env.AWS_REGION = 'region';
@@ -117,11 +120,15 @@ describe('Index', function () {
 					expect(response.text).to.contain('<!DOCTYPE html>');
 				});
 				it('should NOT complain env', function () {
+					expect(response.text).not.to.contain('You still need to set the <span class="label label-default">BRANCH</span> ENV variable.');
 					expect(response.text).not.to.contain('You still need to set the <span class="label label-default">BITBUCKET_USERNAME</span> ENV variable.');
 					expect(response.text).not.to.contain('You still need to set the <span class="label label-default">BITBUCKET_PASSWORD</span> ENV variable.');
 					expect(response.text).not.to.contain('You still need to set the <span class="label label-default">AWS_REGION</span> ENV variable.');
 					expect(response.text).not.to.contain('You still need to set the <span class="label label-default">AWS_ACCESS_KEY_ID</span> ENV variable.');
 					expect(response.text).not.to.contain('You still need to set the <span class="label label-default">AWS_SECRET_ACCESS_KEY</span> ENV variable.');
+				});
+				it('should say what branch is set', function () {
+					expect(response.text).to.contain('Set to <span class="label label-default">master</span>.');
 				});
 				it('should say login was successful', function () {
 					expect(response.text).to.contain('App is running and has access to Amazon S3 and BitBucket!');
@@ -171,6 +178,7 @@ describe('Index', function () {
 		});
 		
 		after(function () {
+			delete process.env.BRANCH;
 			delete process.env.BITBUCKET_USERNAME;
 			delete process.env.BITBUCKET_PASSWORD;
 			delete process.env.AWS_REGION;

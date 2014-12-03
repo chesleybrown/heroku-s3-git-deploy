@@ -4,6 +4,10 @@
 	"repository": "https://github.com/chesleybrown/heroku-s3-git-deploy",
 	"keywords": ["node", "express", "git", "s3", "amazon", "bitbucket"],
 	"env": {
+		"BRANCH": {
+			"description": "The branch to checkout and push changes for.",
+			"value": "master"
+		},
 		"BITBUCKET_USERNAME": {
 			"description": "Your Bitbucket username or team name.",
 			"value": ""

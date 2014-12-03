@@ -19,7 +19,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
-					<% if (!BITBUCKET_USERNAME || !BITBUCKET_PASSWORD || !AWS_REGION || !AWS_BUCKET || !AWS_ACCESS_KEY_ID || !AWS_SECRET_ACCESS_KEY) { %>
+					<% if (!BRANCH || !BITBUCKET_USERNAME || !BITBUCKET_PASSWORD || !AWS_REGION || !AWS_BUCKET || !AWS_ACCESS_KEY_ID || !AWS_SECRET_ACCESS_KEY) { %>
 						<div class="alert alert-warning" role="alert">App is running, but missing required configuration!</div>
 					<% } else if (!authenticated.bitbucket) { %>
 						<div class="alert alert-danger" role="alert">Access to BitBucket was denied. Are you sure the credentials are correct?</div>
@@ -30,6 +30,31 @@
 					<% } %>
 				</div>
 			</div>
+			
+			<div class="row">
+				<div class="col-md-6">
+					<h4>
+						<% if (BRANCH) { %>
+							<span class="label label-success">Success</span>
+						<% } else { %>
+							<span class="label label-danger">Missing</span>
+						<% } %>
+						<div class="visible-xs">
+							<br>
+						</div>
+						BRANCH
+					</h4>
+				</div>
+				<div class="col-md-6">
+					<% if (BRANCH) { %>
+						<h4><small>Set to <span class="label label-default"><%= BRANCH %></span>.</small></h4>
+					<% } else { %>
+						<h4><small>You still need to set the <span class="label label-default">BRANCH</span> ENV variable.</small></h4>
+					<% } %>
+				</div>
+			</div>
+			
+			<hr>
 			
 			<div class="row">
 				<div class="col-md-6">
@@ -185,7 +210,17 @@
 				<div class="col-xs-12">
 					<h3>Setup</h3>
 					<ol>
-						<li>TBD</li>
+						<% if (!BITBUCKET_USERNAME || !BITBUCKET_PASSWORD) { %>
+							<li>Create an API Key in Bitbucket for your team and use your team name as the username and the API Key as your password in the next step.</li>
+							<li>Set <span class="label label-default">BITBUCKET_USERNAME</span> and <span class="label label-default">BITBUCKET_PASSWORD</span> ENV variables to match with the username and password above.</li>
+						<% } %>
+						<li>
+							Add a <strong>POST</strong> hook in Bitbucket that points to:<br>
+							<strong><%= host %>/commit-hook</strong>
+						</li>
+						<li>
+							Now whenever code is pushed to the <strong>master</strong> branch, it will all be copied and deployed to Amazon S3.
+						</li>
 					</ol>
 				</div>
 			</div>

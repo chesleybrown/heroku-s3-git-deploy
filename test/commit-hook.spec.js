@@ -11,6 +11,7 @@ describe('Commit Hook', function () {
 	
 	describe('when no environment set', function () {
 		before(function () {
+			delete process.env.BRANCH;
 			delete process.env.BITBUCKET_USERNAME;
 			delete process.env.BITBUCKET_PASSWORD;
 			delete process.env.AWS_REGION;
@@ -37,6 +38,7 @@ describe('Commit Hook', function () {
 	});
 	
 	after(function () {
+		delete process.env.BRANCH;
 		delete process.env.BITBUCKET_USERNAME;
 		delete process.env.BITBUCKET_PASSWORD;
 		delete process.env.AWS_REGION;

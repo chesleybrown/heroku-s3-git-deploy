@@ -44,6 +44,7 @@ module.exports = function () {
 			})
 			.finally(function () {
 				res.render('index', {
+					BRANCH: process.env.BRANCH,
 					BITBUCKET_USERNAME: Boolean(process.env.BITBUCKET_USERNAME),
 					BITBUCKET_PASSWORD: Boolean(process.env.BITBUCKET_PASSWORD),
 					AWS_REGION: Boolean(process.env.AWS_REGION),
@@ -70,7 +71,7 @@ module.exports = function () {
 		var isMaster = false;
 		if (req.body.commits && req.body.commits.length) {
 			for (var i in req.body.commits) {
-				if (req.body.commits[i].branch == 'master') {
+				if (req.body.commits[i].branch == process.env.BRANCH) {
 					isMaster = true;
 					break;
 				}
@@ -96,7 +97,7 @@ module.exports = function () {
 		rimraf(localDestination, function () {
 			// download repo as zip
 			new Download({extract: true, strip: 1})
-				.get('https://' + process.env.BITBUCKET_USERNAME + ':' + process.env.BITBUCKET_PASSWORD + '@bitbucket.org' + req.body.repository.absolute_url + 'get/master.zip')
+				.get('https://' + process.env.BITBUCKET_USERNAME + ':' + process.env.BITBUCKET_PASSWORD + '@bitbucket.org' + req.body.repository.absolute_url + 'get/' + process.env.BRANCH + '.zip')
 				.dest(localDestination)
 				.run(function (err, files, stream) {
 					if (err) {
