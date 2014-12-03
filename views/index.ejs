@@ -72,7 +72,7 @@
 				</div>
 				<div class="col-md-6">
 					<% if (BITBUCKET_USERNAME) { %>
-						<h4><small>ENV variable is set!</small></h4>
+						<h4><small>Set to <span class="label label-default"><%= BITBUCKET_USERNAME %></span>.</small></h4>
 					<% } else { %>
 						<h4><small>You still need to set the <span class="label label-default">BITBUCKET_USERNAME</span> ENV variable.</small></h4>
 					<% } %>
@@ -97,7 +97,7 @@
 				</div>
 				<div class="col-md-6">
 					<% if (BITBUCKET_PASSWORD) { %>
-						<h4><small>ENV variable is set!</small></h4>
+						<h4><small>ENV variable is set, but it's a secret!</small></h4>
 					<% } else { %>
 						<h4><small>You still need to set the <span class="label label-default">BITBUCKET_PASSWORD</span> ENV variable.</small></h4>
 					<% } %>
@@ -147,7 +147,7 @@
 				</div>
 				<div class="col-md-6">
 					<% if (AWS_BUCKET) { %>
-						<h4><small><small>Set to <span class="label label-default"><%= AWS_BUCKET %></span>.</small></small></h4>
+						<h4><small>Set to <span class="label label-default"><%= AWS_BUCKET %></span>.</small></h4>
 					<% } else { %>
 						<h4><small>You still need to set the <span class="label label-default">AWS_BUCKET</span> ENV variable.</small></h4>
 					<% } %>
@@ -172,7 +172,7 @@
 				</div>
 				<div class="col-md-6">
 					<% if (AWS_ACCESS_KEY_ID) { %>
-						<h4><small>ENV variable is set!</small></h4>
+						<h4><small>Set to <span class="label label-default"><%= AWS_ACCESS_KEY_ID %></span>.</small></h4>
 					<% } else { %>
 						<h4><small>You still need to set the <span class="label label-default">AWS_ACCESS_KEY_ID</span> ENV variable.</small></h4>
 					<% } %>
@@ -197,7 +197,7 @@
 				</div>
 				<div class="col-md-6">
 					<% if (AWS_SECRET_ACCESS_KEY) { %>
-						<h4><small>ENV variable is set!</small></h4>
+						<h4><small>ENV variable is set, but it's a secret!</small></h4>
 					<% } else { %>
 						<h4><small>You still need to set the <span class="label label-default">AWS_SECRET_ACCESS_KEY</span> ENV variable.</small></h4>
 					<% } %>

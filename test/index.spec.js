@@ -84,8 +84,8 @@ describe('Index', function () {
 			process.env.BITBUCKET_PASSWORD = 'bitbucket_password';
 			process.env.AWS_REGION = 'region';
 			process.env.AWS_BUCKET = 'bucket';
-			process.env.AWS_ACCESS_KEY_ID = 'access_key';
-			process.env.AWS_SECRET_ACCESS_KEY = 'secret_access_key';
+			process.env.AWS_ACCESS_KEY_ID = 'aws_access_key_id';
+			process.env.AWS_SECRET_ACCESS_KEY = 'aws_secret_access_key';
 		});
 		
 		describe('and credentials are correct', function () {
@@ -127,6 +127,12 @@ describe('Index', function () {
 					expect(response.text).not.to.contain('You still need to set the <span class="label label-default">AWS_ACCESS_KEY_ID</span> ENV variable.');
 					expect(response.text).not.to.contain('You still need to set the <span class="label label-default">AWS_SECRET_ACCESS_KEY</span> ENV variable.');
 				});
+				it('should say what bitbucket username is set', function () {
+					expect(response.text).to.contain('Set to <span class="label label-default">bitbucket_username</span>.');
+				});
+				it('should NEVER say what aws bitbucket password is set', function () {
+					expect(response.text).not.to.contain('bitbucket_password');
+				});
 				it('should say what branch is set', function () {
 					expect(response.text).to.contain('Set to <span class="label label-default">master</span>.');
 				});
@@ -135,6 +141,12 @@ describe('Index', function () {
 				});
 				it('should say what region is set', function () {
 					expect(response.text).to.contain('Set to <span class="label label-default">region</span>.');
+				});
+				it('should say what aws access id is set', function () {
+					expect(response.text).to.contain('Set to <span class="label label-default">aws_access_key_id</span>.');
+				});
+				it('should NEVER say what aws secret access key is set', function () {
+					expect(response.text).not.to.contain('aws_secret_access_key');
 				});
 				it('should say login was successful', function () {
 					expect(response.text).to.contain('App is running and has access to Amazon S3 and BitBucket!');
