@@ -11,6 +11,10 @@ describe('Commit Hook', function () {
 	
 	describe('when no environment set', function () {
 		before(function () {
+			delete process.env.BITBUCKET_USERNAME;
+			delete process.env.BITBUCKET_PASSWORD;
+			delete process.env.AWS_REGION;
+			delete process.env.AWS_BUCKET;
 			delete process.env.AWS_ACCESS_KEY_ID;
 			delete process.env.AWS_SECRET_ACCESS_KEY;
 		});
@@ -18,7 +22,7 @@ describe('Commit Hook', function () {
 		describe('and commit hook is called', function () {
 			before(function (done) {
 				request(app)
-					.get('/commit-hook')
+					.post('/commit-hook')
 					.end(function (err, res) {
 						response = res;
 						done();
@@ -30,6 +34,15 @@ describe('Commit Hook', function () {
 				expect(response.status).to.equal(500);
 			});
 		});
+	});
+	
+	after(function () {
+		delete process.env.BITBUCKET_USERNAME;
+		delete process.env.BITBUCKET_PASSWORD;
+		delete process.env.AWS_REGION;
+		delete process.env.AWS_BUCKET;
+		delete process.env.AWS_ACCESS_KEY_ID;
+		delete process.env.AWS_SECRET_ACCESS_KEY;
 	});
 	
 })

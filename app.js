@@ -11,7 +11,6 @@ var path = require('path');
 module.exports = function () {
 	var app = express();
 	
-	app.use('/media', express.static(__dirname + '/media'));
 	app.use(bodyParser.json());
 	app.set('view engine', 'ejs');
 	app.enable('trust proxy');
@@ -48,6 +47,7 @@ module.exports = function () {
 					BITBUCKET_USERNAME: Boolean(process.env.BITBUCKET_USERNAME),
 					BITBUCKET_PASSWORD: Boolean(process.env.BITBUCKET_PASSWORD),
 					AWS_REGION: Boolean(process.env.AWS_REGION),
+					AWS_BUCKET: Boolean(process.env.AWS_BUCKET),
 					AWS_ACCESS_KEY_ID: Boolean(process.env.AWS_ACCESS_KEY_ID),
 					AWS_SECRET_ACCESS_KEY: Boolean(process.env.AWS_SECRET_ACCESS_KEY),
 					host: req.protocol + '://' + req.get('host'),
@@ -60,33 +60,35 @@ module.exports = function () {
 		;
 	});
 	
-	app.get('/commit-hook', function (req, res) {
-		if (!process.env.BITBUCKET_USERNAME || !process.env.BITBUCKET_PASSWORD || !process.env.AWS_REGION || !process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY) {
+	app.post('/commit-hook', function (req, res) {
+		req.body = require('./test/bitbucket-commit.json');
+		if (!process.env.BITBUCKET_USERNAME || !process.env.BITBUCKET_PASSWORD || !process.env.AWS_REGION || !process.env.AWS_BUCKET || !process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY) {
 			res.status(500).end();
 			return;
 		}
 		
-		var repo = req.body.repository.slug;
-		
 		var destination = pkgcloudContainerCopy.createCloudContainerSpecifer({
+			namePrefix: req.body.repository.slug + '/',
 			client: {
 				provider: 'aws-sdk',
 				region: process.env.AWS_REGION
 			},
-			container: repo
+			container: process.env.AWS_BUCKET
 		});
 		
 		// delete directory if it already exist
-		var localDestination = path.resolve(__dirname, 'downloads', repo);
+		var localDestination = path.resolve(__dirname, 'downloads', req.body.repository.slug);
 		
 		rimraf(localDestination, function () {
 			// download repo as zip
 			new Download({extract: true, strip: 1})
-				.get('https://' + process.env.BITBUCKET_USERNAME + ':' + process.env.BITBUCKET_PASSWORD + '@bitbucket.org' + req.body.repository.absolute_url + 'get/' + req.body.commits.branch + '.zip')
+				.get('https://' + process.env.BITBUCKET_USERNAME + ':' + process.env.BITBUCKET_PASSWORD + '@bitbucket.org' + req.body.repository.absolute_url + 'get/master.zip')
 				.dest(localDestination)
 				.run(function (err, files, stream) {
 					if (err) {
-						throw err;
+						console.error(err);
+						res.status(500).end();
+						return;
 					}
 					
 					pkgcloudContainerCopy

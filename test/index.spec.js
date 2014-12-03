@@ -1,6 +1,7 @@
 var expect = require('chai').expect;
 var request = require('supertest');
 var AWS = require('aws-sdk');
+var Request = require('request');
 
 describe('Index', function () {
 	var app, response;
@@ -31,6 +32,7 @@ describe('Index', function () {
 			delete process.env.BITBUCKET_USERNAME;
 			delete process.env.BITBUCKET_PASSWORD;
 			delete process.env.AWS_REGION;
+			delete process.env.AWS_BUCKET;
 			delete process.env.AWS_ACCESS_KEY_ID;
 			delete process.env.AWS_SECRET_ACCESS_KEY;
 		});
@@ -43,6 +45,9 @@ describe('Index', function () {
 							callback(true);
 						}
 					};
+				};
+				Request = function (opt, callback) {
+					callback(true);
 				};
 				request(app)
 					.get('/')
@@ -75,6 +80,7 @@ describe('Index', function () {
 			process.env.BITBUCKET_USERNAME = 'bitbucket_username';
 			process.env.BITBUCKET_PASSWORD = 'bitbucket_password';
 			process.env.AWS_REGION = 'region';
+			process.env.AWS_BUCKET = 'bucket';
 			process.env.AWS_ACCESS_KEY_ID = 'access_key';
 			process.env.AWS_SECRET_ACCESS_KEY = 'secret_access_key';
 		});
@@ -87,6 +93,9 @@ describe('Index', function () {
 							callback(null);
 						}
 					};
+				};
+				var Request = function (opt, callback) {
+					callback(null);
 				};
 			});
 			
@@ -129,6 +138,9 @@ describe('Index', function () {
 						}
 					};
 				};
+				Request = function (opt, callback) {
+					callback(true);
+				};
 			});
 			
 			describe('and accessing index page', function () {
@@ -162,6 +174,7 @@ describe('Index', function () {
 			delete process.env.BITBUCKET_USERNAME;
 			delete process.env.BITBUCKET_PASSWORD;
 			delete process.env.AWS_REGION;
+			delete process.env.AWS_BUCKET;
 			delete process.env.AWS_ACCESS_KEY_ID;
 			delete process.env.AWS_SECRET_ACCESS_KEY;
 		});

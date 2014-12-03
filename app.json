@@ -12,16 +12,20 @@
 			"description": "Your Bitbucket password or API key.",
 			"value": ""
 		},
-		"AWS_REGION": {
-			"description": "Your Amazon region.",
-			"value": ""
-		},
 		"AWS_ACCESS_KEY_ID": {
 			"description": "Your Amazon access key id.",
 			"value": ""
 		},
 		"AWS_SECRET_ACCESS_KEY": {
 			"description": "Your Amazon secret access key.",
+			"value": ""
+		},
+		"AWS_REGION": {
+			"description": "Your Amazon region.",
+			"value": ""
+		},
+		"AWS_BUCKET": {
+			"description": "Your Amazon bucket to deploy content.",
 			"value": ""
 		}
 	}
