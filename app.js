@@ -1,5 +1,4 @@
 var express = require('express');
-var bodyParser = require('body-parser');
 var AWS = require('aws-sdk');
 var Request = require('request');
 var pkgcloudContainerCopy = require('pkgcloud-container-copy');
@@ -7,11 +6,13 @@ var when = require('when');
 var Download = require('download');
 var rimraf = require('rimraf');
 var path = require('path');
+var bodyParser = require('body-parser');
 
 module.exports = function () {
 	var app = express();
 	
 	app.use(bodyParser.json());
+	app.use(bodyParser.urlencoded({extended:true}));
 	app.set('view engine', 'ejs');
 	app.enable('trust proxy');
 	
@@ -62,16 +63,32 @@ module.exports = function () {
 	});
 	
 	app.post('/commit-hook', function (req, res) {
+		var payload;
+		
 		if (!process.env.BITBUCKET_USERNAME || !process.env.BITBUCKET_PASSWORD || !process.env.AWS_REGION || !process.env.AWS_BUCKET || !process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY) {
 			res.status(500).end();
 			return;
 		}
 		
+		if (!req.body || !req.body.payload) {
+			res.status(400).end();
+			return;
+		}
+		
+		try {
+			payload = JSON.parse(req.body.payload);
+		}
+		catch (err) {
+			console.error(err);
+			res.status(400).end();
+			return;
+		}
+		
 		// only continue if changes to master
 		var isMaster = false;
-		if (req.body.commits && req.body.commits.length) {
-			for (var i in req.body.commits) {
-				if (req.body.commits[i].branch == process.env.BRANCH) {
+		if (payload && payload.commits && payload.commits.length) {
+			for (var i in payload.commits) {
+				if (payload.commits[i].branch == process.env.BRANCH) {
 					isMaster = true;
 					break;
 				}
@@ -83,7 +100,7 @@ module.exports = function () {
 		}
 		
 		var destination = pkgcloudContainerCopy.createCloudContainerSpecifer({
-			namePrefix: req.body.repository.slug + '/',
+			namePrefix: payload.repository.slug + '/',
 			client: {
 				provider: 'aws-sdk',
 				region: process.env.AWS_REGION
@@ -92,12 +109,12 @@ module.exports = function () {
 		});
 		
 		// delete directory if it already exist
-		var localDestination = path.resolve(__dirname, 'downloads', req.body.repository.slug);
+		var localDestination = path.resolve(__dirname, 'downloads', payload.repository.slug);
 		
 		rimraf(localDestination, function () {
 			// download repo as zip
 			new Download({extract: true, strip: 1})
-				.get('https://' + process.env.BITBUCKET_USERNAME + ':' + process.env.BITBUCKET_PASSWORD + '@bitbucket.org' + req.body.repository.absolute_url + 'get/' + process.env.BRANCH + '.zip')
+				.get('https://' + process.env.BITBUCKET_USERNAME + ':' + process.env.BITBUCKET_PASSWORD + '@bitbucket.org' + payload.repository.absolute_url + 'get/' + process.env.BRANCH + '.zip')
 				.dest(localDestination)
 				.run(function (err, files, stream) {
 					if (err) {
