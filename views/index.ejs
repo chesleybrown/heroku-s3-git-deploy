@@ -5,6 +5,7 @@
 		<title>heroku-s3-git-deploy</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 	</head>
 	<body>
@@ -23,11 +24,11 @@
 					<% if (!BRANCH || !BITBUCKET_USERNAME || !BITBUCKET_PASSWORD || !AWS_REGION || !AWS_BUCKET || !AWS_ACCESS_KEY_ID || !AWS_SECRET_ACCESS_KEY) { %>
 						<div class="alert alert-warning" role="alert">App is running, but missing required configuration!</div>
 					<% } else if (!authenticated.bitbucket) { %>
-						<div class="alert alert-danger" role="alert">Access to BitBucket was denied. Are you sure the credentials are correct?</div>
+						<div class="alert alert-danger" role="alert">Access to Bitbucket was denied. Are you sure the credentials are correct?</div>
 					<% } else if (!authenticated.aws) { %>
 						<div class="alert alert-danger" role="alert">Access to Amazon S3 was denied. Are you sure the credentials are correct?</div>
 					<% } else { %>
-						<div class="alert alert-success" role="alert">App is running and has access to Amazon S3 and BitBucket!</div>
+						<div class="alert alert-success" role="alert">App is running and has access to Amazon S3 and Bitbucket!</div>
 					<% } %>
 				</div>
 			</div>
@@ -50,7 +51,7 @@
 					<% if (ssl) { %>
 						<h4><small>Good, you need SSL to make sure the credentials in your post-hook URL remains secure!</small></h4>
 					<% } else { %>
-						<h4><small>You really should use <span class="label label-default">SSL (https)</span> or the credentials in your post-hook URL will NOT be secure.</small></h4>
+						<h4><small>You really should use <span class="label label-default">SSL (https)</span> or the credentials in your post-hook URL will NOT be secure. Click <a href="https://<%= host %>">here to reload over SSL</a>.</small></h4>
 					<% } %>
 				</div>
 			</div>
@@ -247,11 +248,10 @@
 						<li>
 							<p>Add a <strong>POST</strong> hook in Bitbucket that points to:</p>
 							<% if (ssl) { %>
-								<div class="alert alert-info" role="alert">https://<%= BITBUCKET_USERNAME %>:<span class="label label-default">BITBUCKET_PASSWORD</span>@<%= host %>/commit-hook</div>
+								<div class="alert alert-info" role="alert">https://<% if (BITBUCKET_USERNAME) { %><%= BITBUCKET_USERNAME %><% } else { %><span class="label label-default">BITBUCKET_USERNAME</span><% } %>:<span class="label label-default">BITBUCKET_PASSWORD</span>@<%= host %>/commit-hook</div>
 							<% } else { %>
 								<div class="alert alert-danger" role="alert">Sorry, please try using SSL to see the post-hook URL. Click <a href="https://<%= host %>">here to reload over SSL</a>.</div>
 							<% } %>
-							
 						</li>
 						<% if (BRANCH) { %>
 							<li>

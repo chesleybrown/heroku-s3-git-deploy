@@ -1,6 +1,5 @@
 var expect = require('chai').expect;
 var request = require('supertest');
-var AWS = require('aws-sdk');
 
 describe('Commit Hook', function () {
 	var app, response;

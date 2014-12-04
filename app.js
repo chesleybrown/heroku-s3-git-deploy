@@ -1,15 +1,14 @@
-var express = require('express');
-var AWS = require('aws-sdk');
-var Request = require('request');
-var pkgcloudContainerCopy = require('pkgcloud-container-copy');
-var when = require('when');
-var Download = require('download');
-var rimraf = require('rimraf');
-var path = require('path');
-var bodyParser = require('body-parser');
-var basicAuth = require('basic-auth-connect');
-
 module.exports = function () {
+	var express = require('express');
+	var AWS = require('aws-sdk');
+	var Request = require('request');
+	var pkgcloudContainerCopy = require('pkgcloud-container-copy');
+	var when = require('when');
+	var Download = require('download');
+	var rimraf = require('rimraf');
+	var path = require('path');
+	var bodyParser = require('body-parser');
+	var basicAuth = require('basic-auth-connect');
 	var app = express();
 	
 	app.use('/media', express.static(__dirname + '/media'));
@@ -30,7 +29,7 @@ module.exports = function () {
 					url: 'https://' + process.env.BITBUCKET_USERNAME + ':' + process.env.BITBUCKET_PASSWORD + '@api.bitbucket.org/2.0/users/chesleybrown',
 					method: 'GET'
 				}, function (err, response, body) {
-					bitbucketAuthenticated = (err) ? false : true;
+					bitbucketAuthenticated = (err || response.statusCode !== 200) ? false : true;
 					deferred.resolve();
 				});
 				return deferred.promise;
