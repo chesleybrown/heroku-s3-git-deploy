@@ -15,8 +15,11 @@ First just deploy a free instance of the app on heroku using the button then jus
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
+1. You will need `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` and `AWS_BUCKET` for your Amazon S3 account.
+1. Create an API Key in Bitbucket for your team and use your team name as the `username` and the API Key as your `password` in the next step.
+1. Set `BITBUCKET_USERNAME` and `BITBUCKET_PASSWORD` ENV variables to match with the `username` and `password` above.
 1. Add a `POST` hook in Bitbucket that points to the `/commit-hook` end-point for your instance of this app. For example:
-    - `https://<YOUR_APP_NAME_ON_HEROKU>.herokuapp.com/commit-hook`
+    - `https://<BITBUCKET_USERNAME>:<BITBUCKET_PASSWORD>@<YOUR_APP_NAME_ON_HEROKU>.herokuapp.com/commit-hook`
 1. Now whenever code is pushed to the `master` branch, it will all be copied and deployed to Amazon S3.
 
 # Running Locally
