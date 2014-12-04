@@ -1,6 +1,6 @@
 {
 	"name": "heroku-s4-git-deploy",
-	"version": "1.0.2",
+	"version": "2.0.0",
 	"description": "Micro app for automatically deploying to Amazon S3 on a BitBucket commit.",
 	"main": "app.js",
 	"scripts": {
@@ -29,6 +29,7 @@
 	"dependencies": {
 		"body-parser": "^1.9.2",
 		"express": "^4.10.1",
+		"basic-auth-connect": "1.0.0",
 		"request": "^2.47.0",
 		"aws-sdk": "^2.0.29",
 		"pkgcloud-container-copy": "0.5.0",

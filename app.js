@@ -7,6 +7,7 @@ var Download = require('download');
 var rimraf = require('rimraf');
 var path = require('path');
 var bodyParser = require('body-parser');
+var basicAuth = require('basic-auth-connect');
 
 module.exports = function () {
 	var app = express();
@@ -53,7 +54,8 @@ module.exports = function () {
 					AWS_BUCKET: process.env.AWS_BUCKET,
 					AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
 					AWS_SECRET_ACCESS_KEY: Boolean(process.env.AWS_SECRET_ACCESS_KEY),
-					host: req.protocol + '://' + req.get('host'),
+					ssl: (req.protocol === 'https') ? true : false,
+					host: req.get('host'),
 					authenticated: {
 						aws: awsAuthenticated,
 						bitbucket: bitbucketAuthenticated
@@ -63,7 +65,9 @@ module.exports = function () {
 		;
 	});
 	
-	app.post('/commit-hook', function (req, res) {
+	app.post('/commit-hook', basicAuth(function (username, password) {
+		return (username === process.env.BITBUCKET_USERNAME && password === process.env.BITBUCKET_PASSWORD);
+	}), function (req, res) {
 		var payload;
 		
 		if (!process.env.BITBUCKET_USERNAME || !process.env.BITBUCKET_PASSWORD || !process.env.AWS_REGION || !process.env.AWS_BUCKET || !process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY) {
@@ -115,7 +119,7 @@ module.exports = function () {
 		rimraf(localDestination, function () {
 			// download repo as zip
 			new Download({extract: true, strip: 1})
-				.get('https://' + process.env.BITBUCKET_USERNAME + ':' + process.env.BITBUCKET_PASSWORD + '@bitbucket.org' + payload.repository.absolute_url + 'get/' + process.env.BRANCH + '.zip')
+				.get('https://' + process.env.BITBUCKET_USERNAME + ':' + process.env.BITBUCKET_PASSWORD + '@bitbucket.org/' + process.env.BITBUCKET_USERNAME + '/' + payload.repository.slug + '/get/' + process.env.BRANCH + '.zip')
 				.dest(localDestination)
 				.run(function (err, files, stream) {
 					if (err) {

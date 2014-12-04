@@ -35,6 +35,31 @@
 			<div class="row">
 				<div class="col-md-6">
 					<h4>
+						<% if (ssl) { %>
+							<span class="label label-success">Success</span>
+						<% } else { %>
+							<span class="label label-danger">Missing</span>
+						<% } %>
+						<div class="visible-xs">
+							<br>
+						</div>
+						Using SSL
+					</h4>
+				</div>
+				<div class="col-md-6">
+					<% if (ssl) { %>
+						<h4><small>Good, you need SSL to make sure the credentials in your post-hook URL remains secure!</small></h4>
+					<% } else { %>
+						<h4><small>You really should use <span class="label label-default">SSL (https)</span> or the credentials in your post-hook URL will NOT be secure.</small></h4>
+					<% } %>
+				</div>
+			</div>
+			
+			<hr>
+			
+			<div class="row">
+				<div class="col-md-6">
+					<h4>
 						<% if (BRANCH) { %>
 							<span class="label label-success">Success</span>
 						<% } else { %>
@@ -212,16 +237,27 @@
 					<h3>Setup</h3>
 					<ol>
 						<% if (!BITBUCKET_USERNAME || !BITBUCKET_PASSWORD) { %>
-							<li>Create an API Key in Bitbucket for your team and use your team name as the username and the API Key as your password in the next step.</li>
-							<li>Set <span class="label label-default">BITBUCKET_USERNAME</span> and <span class="label label-default">BITBUCKET_PASSWORD</span> ENV variables to match with the username and password above.</li>
+							<li>
+								<p>Create an API Key in Bitbucket for your team and use your team name as the <strong>username</strong> and the API Key as your <strong>password</strong> in the next step.</p>
+							</li>
+							<li>
+								<p>Set <span class="label label-default">BITBUCKET_USERNAME</span> and <span class="label label-default">BITBUCKET_PASSWORD</span> ENV variables to match with the <strong>username</strong> and <strong>password</strong> above.</p>
+							</li>
 						<% } %>
 						<li>
-							Add a <strong>POST</strong> hook in Bitbucket that points to:<br>
-							<strong><%= host %>/commit-hook</strong>
+							<p>Add a <strong>POST</strong> hook in Bitbucket that points to:</p>
+							<% if (ssl) { %>
+								<div class="alert alert-info" role="alert">https://<%= BITBUCKET_USERNAME %>:<span class="label label-default">BITBUCKET_PASSWORD</span>@<%= host %>/commit-hook</div>
+							<% } else { %>
+								<div class="alert alert-danger" role="alert">Sorry, please try using SSL to see the post-hook URL. Click <a href="https://<%= host %>">here to reload over SSL</a>.</div>
+							<% } %>
+							
 						</li>
-						<li>
-							Now whenever code is pushed to the <span class="label label-default"><%= BRANCH %></span> branch, it will all be copied and deployed to Amazon S3.
-						</li>
+						<% if (BRANCH) { %>
+							<li>
+								<p>Now whenever code is pushed to the <span class="label label-default"><%= BRANCH %></span> branch, it will all be copied and deployed to Amazon S3.</p>
+							</li>
+						<% } %>
 					</ol>
 				</div>
 			</div>
